@@ -14,7 +14,7 @@
             $scope.user = angular.copy($scope.user);
 
             switch ($scope.userAction) {
-                
+
                 case 0: //index.html Management
                     // If the session is open wi will have to go to mainWindow.html
                     // otherwise we will remain in the index.html
@@ -34,7 +34,7 @@
                         }
                     });
                     break;
-                    
+
                 case 1: //mainWindow.html Management
                     // Server conenction to verify user's data.
                     var promise = accessService.getData("MainController",
@@ -65,7 +65,7 @@
         this.logOut = function () {
             //Local session destroy
             // Server conenction to verify user's data.
-            var promise = accessService.getData("php/controllers/MainController.php",
+            var promise = accessService.getData("MainController",
                     true, "POST", {controllerType: 0, action: 10040, JSONData: ''});
 
             promise.then(function (outputData) {
