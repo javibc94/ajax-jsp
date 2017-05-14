@@ -40,7 +40,7 @@ public class ProductController implements ControllerInterface {
 
     public ProductController(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
-        this.response = response;        
+        this.response = response;  
 
     }
 
@@ -65,7 +65,7 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10100:
-                    
+                        outPutData = addProduct();
                         break;
                         
                     case 10200:
@@ -118,6 +118,38 @@ public class ProductController implements ControllerInterface {
             } else {
                 outPutData.add(true);
                 outPutData.add(listProducts);
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            outPutData.add(false);
+            List<String> errors = new ArrayList<>();
+            errors.add("There has been an error in the server, try later");
+            outPutData.add(errors);
+            System.out.println("Internal error while creating new user (userInsert): " + ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return outPutData;
+    }
+
+    private ArrayList<Object> addProduct() {
+        ProductADO helper;
+        ArrayList<Object> outPutData = new ArrayList<>();
+
+        try {
+            helper = new ProductADO();
+
+            Collection<Entity> listProducts = helper.findAll();
+            Product p = new Product();
+            int inst = helper.insert(p);
+            if (inst == 0) {
+                outPutData.add(false);
+                List<String> errors = new ArrayList<>();
+                errors.add("Error inserting products");
+                outPutData.add(errors);
+            } else {
+                outPutData.add(true);
+                outPutData.add(p);
             }
 
         } catch (IOException | ClassNotFoundException ex) {
