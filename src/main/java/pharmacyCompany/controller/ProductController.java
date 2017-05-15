@@ -138,8 +138,7 @@ public class ProductController implements ControllerInterface {
 
         try {
             helper = new ProductADO();
-
-            Collection<Entity> listProducts = helper.findAll();
+            
             Product p = new Product();
             int inst = helper.insert(p);
             if (inst == 0) {

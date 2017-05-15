@@ -4,7 +4,7 @@ function Purchase() {
     this.idUser;
     this.idProduct;
     this.deliveryDate;
-    this.specialRequests = new Array();
+    this.specialRequests;
     this.specialInstructions;
 
     //methods declaration
@@ -57,18 +57,18 @@ function Purchase() {
         return this.specialInstructions;
     }
 
-    this.addSpecialRequests = function (specialreq) {
+    /*this.addSpecialRequests = function (specialreq) {
         this.specialRequests.push(specialreq);
-    }
+    }*/
 
-    this.removeSpecialRequests = function (specialreq) {
+    /*this.removeSpecialRequests = function (specialreq) {
         for (var i = 0; i < this.getSpecialRequests().length; i++) {
             if (this.getSpecialRequests()[i] == specialreq) {
                 this.specialRequests.splice(i, 1);
                 break;
             }
         }
-    }
+    }*/
 
     this.toString = function () {
         var purchaseString = "id=" + this.getId() + " idUser=" + this.getIdUser() + " idProduct=" + this.getIdProduct();

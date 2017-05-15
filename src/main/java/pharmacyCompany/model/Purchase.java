@@ -18,14 +18,14 @@ public class Purchase implements Entity {
     private int idUser;
     private int idProduct;
     private String deliveryDate;
-    private ArrayList<String> specialRequests;
+    private String specialRequests;
     private String specialInstructions;
 
     public Purchase() {
 
     }
 
-    public Purchase(int id, int idUser, int idProduct, String deliveryDate, ArrayList<String> specialRequests, String specialIntructions) {
+    public Purchase(int id, int idUser, int idProduct, String deliveryDate, String specialRequests, String specialIntructions) {
         this.id = id;
         this.idUser = idUser;
         this.idProduct = idProduct;
@@ -66,11 +66,11 @@ public class Purchase implements Entity {
         this.deliveryDate = deliveryDate;
     }
     
-    public ArrayList<String> getSpecialRequests() {
+    public String getSpecialRequests() {
         return specialRequests;
     }
     
-    public void setSpecialRequests(ArrayList<String> specialRequests) {
+    public void setSpecialRequests(String specialRequests) {
         this.specialRequests = specialRequests;
     }
 

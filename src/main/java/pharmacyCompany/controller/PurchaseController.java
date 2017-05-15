@@ -55,11 +55,8 @@ public class PurchaseController implements ControllerInterface {
                 // 2. Accés to database in order to get data  
                 switch (action) {
                     case 10000:
-                        //System.out.println("-------------------pharmacyCompany.controller.PurchaseController.doAction()");
-                        //TODO change specialRequests to string
-                        //TODO mirar date
                         Purchase purchase = new Purchase((int) 0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
-                                (ArrayList<String>) jsonObject.get("specialRequests"), (String) jsonObject.get("specialInstructions"));
+                                (String) jsonObject.get("specialRequests"), (String) jsonObject.get("specialInstructions"));
                         System.out.println("purchase");
                         outPutData = purchaseInsert(purchase);
 

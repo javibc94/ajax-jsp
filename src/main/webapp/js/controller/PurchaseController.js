@@ -38,7 +38,9 @@
         
         $scope.specialReqMng = function (indexChecked) {
             if($("#specialReq"+indexChecked).is(":checked")) {
-                $scope.purchase.addSpecialRequests($scope.specialRequests[indexChecked]);
+                var arr = new Array();
+                arr.push(($scope.specialRequests[indexChecked]));
+            $scope.purchase.specialRequests = arr.toString();
             } else {
                 $scope.purchase.removeSpecialRequests($scope.specialRequests[indexChecked]);
             }
