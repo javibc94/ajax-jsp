@@ -54,7 +54,7 @@ public class PurchaseADO implements EntityInterface {
             int idUser = res.getInt("idUser");
             int idProduct = res.getInt("idProduct");
             String deliveryDate = res.getString("deliveryDate");
-            ArrayList specialRequests = (ArrayList) res.getArray("specialRequests");
+            String specialRequests = res.getString("specialRequests");
             String specialInstructions = res.getString("specialInstructions");
             c = (Entity) new Purchase(id, idUser, idProduct, deliveryDate, specialRequests, specialInstructions);
         } catch (SQLException ex) {
@@ -99,7 +99,7 @@ public class PurchaseADO implements EntityInterface {
             st.setInt(1, purchase.getIdUser());
             st.setInt(2, purchase.getIdProduct());
             st.setString(3, purchase.getDeliveryDate());
-            st.setArray(4, (Array) purchase.getSpecialRequests());
+            st.setString(4, purchase.getSpecialRequests());
             st.setString(5, purchase.getSpecialInstructions());
             rowsAffected = st.executeUpdate();
         } catch (SQLException ex) {
@@ -128,7 +128,7 @@ public class PurchaseADO implements EntityInterface {
             st.setInt(1, purchase.getIdUser());
             st.setInt(2, purchase.getIdProduct());
             st.setString(3, purchase.getDeliveryDate());
-            st.setArray(4, (Array) purchase.getSpecialRequests());
+            st.setString(4, purchase.getSpecialRequests());
             st.setString(5, purchase.getSpecialInstructions());
             st.setInt(6, purchase.getId());
 

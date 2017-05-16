@@ -97,7 +97,8 @@ public class PurchaseController implements ControllerInterface {
         System.out.println("-------------------------purchaseInsert");
         PurchaseADO helper;
         ArrayList<Object> outPutData = new ArrayList<>();
-
+        
+        System.out.println(purchase.toString());
         try {
             helper = new PurchaseADO();
 

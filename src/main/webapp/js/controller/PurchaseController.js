@@ -10,7 +10,7 @@
     angular.module('pharmacyApp').controller("PurchaseController", ['$http', '$scope', '$window', '$cookies', 'accessService', 'userConnected', function ($http, $scope, $window, $cookies, accessService, userConnected) {
         $scope.purchase = new Purchase();
         $scope.purchasesArray = new Array();
-        $scope.idUser = $scope.$parent.idUser;
+        $scope.purchase.idUser = $scope.$parent.id;
         
         //Scope variables
         $scope.showForm = 0;
@@ -48,8 +48,12 @@
         
         this.addPurchase = function () {
             
+            $scope.purchase.id=null;
+            $scope.purchase.idProduct = $scope.selectedProduct.id;
             $scope.purchase = angular.copy($scope.purchase);
+            
             console.log($scope.purchase);
+            
             // Server conenction to verify user's data.
             var promise = accessService.getData("MainController",
                     true, "POST", {controllerType: 2, action: 10000, JSONData: JSON.stringify($scope.purchase)});
