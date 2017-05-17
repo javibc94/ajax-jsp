@@ -36,11 +36,11 @@
         <script type="text/javascript" src="js/controller/ProductController.js" ></script>
     </head>
     <body class="documentColor" ng-controller="SessionController as sessionCtrl" ng-init="userAction = 1; sessionCtrl.sessionControl()">
-        <div ng-controller="ProductController as productCtrl" ng-init="productCtrl.loadProducts()">    
+        <div ng-controller="ProductController as productCtrl" ng-init="productCtrl.loadProducts()">   
             <div ng-show="userType==0">
-                <a>Add product</a>
-                <a>Modify product</a>
-                <a>Remove product</a>
+                <a>Products management</a>
+                <a>Purchase management</a>
+            </div>
             </div>
             <div ng-show="userType==1" ng-controller="PurchaseController as purchaseCtrl">
                 <a href="#" ng-click="showForm=1">Purchase a product</a>
@@ -48,6 +48,6 @@
                     <purchase-management></purchase-management>
                 </div>
             </div>
-        </div>
+        
     </body>
 </html>

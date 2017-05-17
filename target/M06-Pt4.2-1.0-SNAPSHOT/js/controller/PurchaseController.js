@@ -8,8 +8,12 @@
     //Application module
 
     angular.module('pharmacyApp').controller("PurchaseController", ['$http', '$scope', '$window', '$cookies', 'accessService', 'userConnected', function ($http, $scope, $window, $cookies, accessService, userConnected) {
+        //the purchase object
         $scope.purchase = new Purchase();
+        //it'll be completed with an ajax conection calling the purchases,
+        //only to paginate
         $scope.purchasesArray = new Array();
+        //id from the user logged
         $scope.purchase.idUser = $scope.$parent.id;
         
         //Scope variables
