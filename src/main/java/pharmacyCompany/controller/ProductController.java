@@ -65,23 +65,16 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10100:
-                        outPutData = addProduct();
+                        Product p = new Product ((int) 0,(String) jsonObject.get("name"),(double) jsonObject.get("price"));
+                        outPutData = addProduct(p);
                         break;
                         
                     case 10200:
-                    
+                        //outPutData = deleteProduct();
                         break;
                     
                     case 10300:
-                        
-                        break;
-                        
-                    case 10400:
-                        
-                        break;
-                    
-                    case 10500:
-
+                        //outPutData = modifyProduct();
                         break;
                         
                     default:
@@ -132,14 +125,13 @@ public class ProductController implements ControllerInterface {
         return outPutData;
     }
 
-    private ArrayList<Object> addProduct() {
+    private ArrayList<Object> addProduct(Product p) {
         ProductADO helper;
         ArrayList<Object> outPutData = new ArrayList<>();
 
         try {
             helper = new ProductADO();
             
-            Product p = new Product();
             int inst = helper.insert(p);
             if (inst == 0) {
                 outPutData.add(false);
