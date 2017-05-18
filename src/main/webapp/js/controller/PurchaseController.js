@@ -8,13 +8,9 @@
     //Application module
 
     angular.module('pharmacyApp').controller("PurchaseController", ['$http', '$scope', '$window', '$cookies', 'accessService', 'userConnected', function ($http, $scope, $window, $cookies, accessService, userConnected) {
-        //the purchase object
         $scope.purchase = new Purchase();
-        //it'll be completed with an ajax conection calling the purchases,
-        //only to paginate
         $scope.purchasesArray = new Array();
-        //id from the user logged
-        $scope.purchase.idUser = $scope.$parent.id;
+        $scope.idUser = $scope.$parent.idUser;
         
         //Scope variables
         $scope.showForm = 0;
@@ -42,9 +38,7 @@
         
         $scope.specialReqMng = function (indexChecked) {
             if($("#specialReq"+indexChecked).is(":checked")) {
-                var arr = new Array();
-                arr.push(($scope.specialRequests[indexChecked]));
-            $scope.purchase.specialRequests = arr.toString();
+                $scope.purchase.addSpecialRequests($scope.specialRequests[indexChecked]);
             } else {
                 $scope.purchase.removeSpecialRequests($scope.specialRequests[indexChecked]);
             }
@@ -52,12 +46,8 @@
         
         this.addPurchase = function () {
             
-            $scope.purchase.id=null;
-            $scope.purchase.idProduct = $scope.selectedProduct.id;
             $scope.purchase = angular.copy($scope.purchase);
-            
             console.log($scope.purchase);
-            
             // Server conenction to verify user's data.
             var promise = accessService.getData("MainController",
                     true, "POST", {controllerType: 2, action: 10000, JSONData: JSON.stringify($scope.purchase)});

@@ -48,15 +48,19 @@ public class PurchaseController implements ControllerInterface {
                 String JSONData = request.getParameter("JSONData");
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(JSONData);
-                System.out.println(jsonObject);
-                                System.out.println(JSONData);
+                //System.out.println(jsonObject);
+                  //              System.out.println(JSONData);
                 //Purchase purchase;
 
                 // 2. Accés to database in order to get data  
                 switch (action) {
                     case 10000:
+                        ArrayList specialRequests = (ArrayList) jsonObject.get("specialRequests");
+                        //System.out.println(specialRequests);
+                        String requests = String.join(";", specialRequests);
+                        //System.out.println(requests);
                         Purchase purchase = new Purchase((int) 0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
-                                (String) jsonObject.get("specialRequests"), (String) jsonObject.get("specialInstructions"));
+                                requests, (String) jsonObject.get("specialInstructions"));
                         System.out.println("purchase");
                         outPutData = purchaseInsert(purchase);
 
@@ -97,8 +101,7 @@ public class PurchaseController implements ControllerInterface {
         System.out.println("-------------------------purchaseInsert");
         PurchaseADO helper;
         ArrayList<Object> outPutData = new ArrayList<>();
-        
-        System.out.println(purchase.toString());
+
         try {
             helper = new PurchaseADO();
 

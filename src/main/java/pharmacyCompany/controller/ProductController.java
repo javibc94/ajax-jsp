@@ -40,7 +40,7 @@ public class ProductController implements ControllerInterface {
 
     public ProductController(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
-        this.response = response;  
+        this.response = response;        
 
     }
 
@@ -73,11 +73,11 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10200:
-                        //outPutData = deleteProduct();
+                    
                         break;
                     
                     case 10300:
-                        //outPutData = modifyProduct();
+                        
                         break;
                         
                     default:
@@ -127,7 +127,6 @@ public class ProductController implements ControllerInterface {
         
         return outPutData;
     }
-
     private ArrayList<Object> addProduct(Product p) {
         ProductADO helper;
         ArrayList<Object> outPutData = new ArrayList<>();

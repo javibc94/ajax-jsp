@@ -39,12 +39,12 @@
         <div ng-controller="ProductController as productCtrl" ng-init="productCtrl.loadProducts()"> 
             <div ng-controller="PurchaseController as purchaseCtrl">
                 <div ng-show="userType==0">
-                    <a ng-click="showForm==2">Products management</a>
-                    <a ng-click="showForm==3">Purchase management</a>
-                    <div ng-show="2" id="productForm">
+                    <a ng-click="showForm=2">Products management</a>
+                    <a ng-click="showForm=3">Purchase management</a>
+                    <div ng-show="showForm==2" id="productForm">
                         <product-management></product-management>
                     </div>
-                    <div ng-show="3" id="purchaseMangForm">
+                    <div ng-show="showForm==3" id="purchaseMangForm">
                         <purchase-management-real></purchase-management-real>
                     </div>
                 </div>
