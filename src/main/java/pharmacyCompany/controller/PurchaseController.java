@@ -59,9 +59,11 @@ public class PurchaseController implements ControllerInterface {
                         //System.out.println(specialRequests);
                         String requests = String.join(";", specialRequests);
                         //System.out.println(requests);
-                        Purchase purchase = new Purchase((int) 0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
-                                requests, (String) jsonObject.get("specialInstructions"));
-                        System.out.println("purchase");
+                        Purchase purchase = new Purchase(0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
+                               requests, (String) jsonObject.get("specialInstructions"));
+                        //Purchase purchase = new Purchase(0, 2, 4, "0000-00-00", 
+                          //      "specialRequests", "specialInstructions");
+                        System.out.println("Purchase: " + purchase);
                         outPutData = purchaseInsert(purchase);
 
                         request.getSession().setAttribute("purchaseInsert", purchase);
