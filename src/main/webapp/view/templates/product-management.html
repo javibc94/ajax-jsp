@@ -1,30 +1,195 @@
-<form class="login2" name="productManagement" ng-submit="productCtrl.addProduct()" novalidate>
-    <h2>Product management</h2>
-    <div class="container well">
-        <div class="form-horizontal" >
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="formGroup">Name of product*</label>
-                <div class="col-sm-4">
-                    <input type="text" ng-model="product.name" required>
-                </div>
-                
-                <label class="col-sm-2 control-label" for="formGroup">Price *</label>
-                <div class="col-sm-4">
-                    <input class="form-control" type="number" min="2" id="productPrice" ng-model="product.price" required/>
-                </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="formGroup"></label>
-                <div class="col-sm-4">
-                    <button ng-disabled="productManagement.$invalid" class="btn btn-success">
-                        Add product
-                    </button>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label>
-                        <input class="btn btn-default btn-primary btn-block" type="button" value="Back" ng-click="showForm = 0">
-                    </label>
-                </div>
-            </div>
+<div class="container well">
+  <div class="row">
+    <div class="col-lg-10">
+      <div ng-show="action==0">
+        <h1>List of all products</h1>
+        <div class="row">
+          <div class="col-xs-4">
+            <h3>Products Page: {{currentPage}}</h3>
+          </div>
+          <div class="col-sm-3">
+            <label for="search">Search by name:</label>
+            <input ng-model="nameSearch" id="search" class="form-control"
+            placeholder="Filter text" ng-disabled="eventsManagement.$invalid">
+          </div>
+          <div class="col-sm-3">
+            <label for="search">Search by price:</label>
+            <input ng-model="maxAssistantsSearch" id="search" class="form-control"
+            placeholder="Filter text" ng-disabled="eventsManagement.$invalid">
+          </div>
+          <div class="col-sm-2">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control"
+            ng-model="pageSize" ng-disabled="eventsManagement.$invalid">
+          </div>
         </div>
+        <br>
+        <form class="login2" name="productsManagement"
+        ng-submit="eventsManagement.$valid" novalidate>
+          <div class="panel panel-default">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="search">Name:</label>
+              </div>
+              <div class="col-sm-4">
+                <label for="search">Price:</label>
+              </div>
+            </div>
+            <div class="row" dir-paginate="product in filteredData | itemsPerPage: pageSize" current-page="currentPage">
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="name{{$index}}"
+                min="0" max="10"
+                ng-model="product.name" required />
+              </div>
+              <div class="col-sm-3">
+                <input type="number" class="form-control" id="maxAssistants{{$index}}"
+                ng-model="product.price" required />
+              </div>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="admin{{$index}}"
+                ng-model="event.admin" required />
+              </div><div class="container well">
+  <div class="row">
+    <div class="col-lg-10">
+      <div ng-show="action==0">
+        <h1>List of all Events</h1>
+        <div class="row">
+          <div class="col-xs-4">
+            <h3>Events Page: {{currentPage}}</h3>
+          </div>
+          <div class="col-sm-3">
+            <label for="search">Search by name:</label>
+            <input ng-model="nameSearch" id="search" class="form-control"
+            placeholder="Filter text" ng-disabled="eventsManagement.$invalid">
+          </div>
+          <div class="col-sm-3">
+            <label for="search">Search by number of assistants:</label>
+            <input ng-model="maxAssistantsSearch" id="search" class="form-control"
+            placeholder="Filter text" ng-disabled="eventsManagement.$invalid">
+          </div>
+          <div class="col-sm-2">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control"
+            ng-model="pageSize" ng-disabled="eventsManagement.$invalid">
+          </div>
+        </div>
+        <br>
+        <form class="login2" name="eventsManagement"
+        ng-submit="eventsManagement.$valid" novalidate>
+          <div class="panel panel-default">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="search">Name:</label>
+              </div>
+              <div class="col-sm-4">
+                <label for="search">Assitants:</label>
+              </div>
+              <div class="col-sm-4">
+                <label for="search">Admin:</label>
+              </div>
+            </div>
+            <div class="row" dir-paginate="event in filteredData | itemsPerPage: pageSize"
+                  current-page="currentPage">
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="name{{$index}}"
+                min="0" max="10"
+                ng-model="event.name" required />
+              </div>
+              <div class="col-sm-3">
+                <input type="number" class="form-control" id="maxAssistants{{$index}}"
+                ng-model="event.maxAssistants" required />
+              </div>
+              <div>
+                <input type="submit" class="btn btn-success" id="assist{{$index}}"
+                ng-click="productCtrl.updateProduct(event)" value="Update"/>
+              </div>
+                <div>
+                <input type="submit" class="btn btn-danger" id="assist{{$index}}"
+                ng-click="productCtrl.deleteProduct(event)" value="Delete"/>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="text-left" boundary-links="true" ng-show="eventsManagement.$valid">
+            <dir-pagination-controls boundary-links="true"
+            template-url="view/templates/dir-pagination-controls.html" ></dir-pagination-controls>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="formGroup"></label>
+            <div class="col-sm-4">
+              <button type="submit"
+              ng-disabled="eventsManagement.$invalid" class="btn btn-success">
+                Submit
+              </button>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Back" ng-click="$parent.showAction=0">
+              </label>
+              <!--<label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Add new event" ng-click="action=1">
+              </label>-->
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Events to assist" ng-click="action=2">
+              </label>
+            </div>
+          </div>
+      </div>
+      <!--<div ng-show="action==1">
+        <add-event-form></add-event-form>
+      </div>
+      <div ng-show="action==2">
+        <cookie-info></cookie-info>
+      </div>-->
     </div>
-</form>
+  </div>
+</div>
+
+              <div>
+                <input type="submit" class="btn btn-success" id="assist{{$index}}" ng-disabled="event.assist" ng-model="event.assist"
+                ng-click="eventCtrl.addCookie(event)" value="Assist"/>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="text-left" boundary-links="true" ng-show="eventsManagement.$valid">
+            <dir-pagination-controls boundary-links="true"
+            template-url="view/templates/dir-pagination-controls.html" ></dir-pagination-controls>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="formGroup"></label>
+            <div class="col-sm-4">
+              <button type="submit"
+              ng-disabled="eventsManagement.$invalid" class="btn btn-success">
+                Submit
+              </button>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Back" ng-click="$parent.showAction=0">
+              </label>
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Add new event" ng-click="action=1">
+              </label>
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Events to assist" ng-click="action=2">
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--<div ng-show="action==1">
+        <add-event-form></add-event-form>
+      </div>
+      <div ng-show="action==2">
+        <cookie-info></cookie-info>
+      </div>-->
+    </div>
+  </div>
+</div>

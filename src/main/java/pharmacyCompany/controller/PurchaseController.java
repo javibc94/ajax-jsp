@@ -55,7 +55,7 @@ public class PurchaseController implements ControllerInterface {
                   //              System.out.println(JSONData);
                 //Purchase purchase;
 
-                // 2. Accés to database in order to get data  
+                // 2. Accés to database in order to get data
                 switch (action) {
                     case 10000:
                         specialRequests = (ArrayList) jsonObject.get("specialRequests");
@@ -96,10 +96,6 @@ public class PurchaseController implements ControllerInterface {
                         request.getSession().setAttribute("purchaseInsert", purchase);
                         break;
 
-                    case 10300:
-
-                        break;
-
                     default:
                         //Sending to client the error                        
                         outPutData.add(false);
@@ -127,7 +123,7 @@ public class PurchaseController implements ControllerInterface {
             helper = new PurchaseADO();
 
             int rowsAffected = helper.insert(purchase);
-            System.out.println("purchaseADO");
+            System.out.println("purchaseADO->insert");
             if (rowsAffected == 0) {
                 outPutData.add(false);
                 List<String> errors = new ArrayList<>();
@@ -159,7 +155,7 @@ public class PurchaseController implements ControllerInterface {
             helper = new PurchaseADO();
 
             int rowsAffected = helper.update(purchase);
-            System.out.println("purchaseADO");
+            System.out.println("purchaseADO->update");
             if (rowsAffected == 0) {
                 outPutData.add(false);
                 List<String> errors = new ArrayList<>();
@@ -191,7 +187,7 @@ public class PurchaseController implements ControllerInterface {
             helper = new PurchaseADO();
 
             int rowsAffected = helper.remove(purchase);
-            System.out.println("purchaseADO");
+            System.out.println("purchaseADO->remove");
             if (rowsAffected == 0) {
                 outPutData.add(false);
                 List<String> errors = new ArrayList<>();

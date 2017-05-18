@@ -1,59 +1,99 @@
-<form class="login2" name="purchaseManagement" ng-submit="purchaseCtrl.addPurchase()" novalidate>
-    <h2>Purchase a product</h2>
-    <div class="container well">
-        <div class="form-horizontal" >
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="formGroup">Select the product*</label>
-                <div class="col-sm-4">
-                    <select id="product" ng-options="product as product.name for product in productsArray track by product.id"
-                            ng-model="selectedProduct" >
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label" for="formGroup">Desired delivery date*</label>
-                <div class="col-sm-4">
-                    <p class="input-group">
-                        <input type="text" class="form-control" id="deliveryDate"
-                               uib-datepicker-popup="{{format}}"
-                               is-open="deliveryDate.opened"
-                               datepicker-options="dateOptions"
-                               alt-input-formats="altInputFormats"
-                               close-text="Close"
-                               ng-required="true"
-                               ng-model="purchase.deliveryDate"
-                               readonly/>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="openDeliveryDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
-                    </p>
-                </div>
-                <label class="col-sm-2 control-label" for="formGroup">Price</label>
-                <div class="col-sm-4">
-                    <input class="form-control" type="text" id="productPrice" ng-model="selectedProduct.price" ng-change="selectedProduct.price" readonly/>
-                </div>
-                <label class="col-sm-2 control-label" for="formGroup">Special requests</label>
-                <div class="col-sm-4">
-                    <div ng-repeat="specialRequest in specialRequests">
-                        <input type="checkbox" id="specialReq{{$index}}" ng-click="specialReqMng($index)"/> {{specialRequest}} <br>
-                    </div>
-                </div>
-                <label class="col-sm-2 control-label" for="formGroup">Special intructions</label>
-                <div class="col-sm-4">
-                    <textarea ng-model="purchase.specialInstructions" id="specialIntructions" style="width: 300px; height: 100px"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="formGroup"></label>
-                <div class="col-sm-4">
-                    <button ng-disabled="purchaseManagement.$invalid" class="btn btn-success">
-                        Purchase
-                    </button>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label>
-                        <input class="btn btn-default btn-primary btn-block" type="submit" value="Back" ng-click="showForm = 0">
-                    </label>
-                </div>
-            </div>
+<div class="container well">
+  <div class="row">
+    <div class="col-lg-10">
+      <div ng-show="action==0">
+        <h1>List of all purchases</h1>
+        <div class="row">
+          <div class="col-xs-4">
+            <h3>Purchase Page: {{currentPage}}</h3>
+          </div>
+          <div class="col-sm-3">
+            <label for="search">Search by name:</label>
+            <input ng-model="nameSearch" id="search" class="form-control"
+            placeholder="Filter text" ng-disabled="purchaseManagement.$invalid">
+          </div>
+          <div class="col-sm-2">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control"
+            ng-model="pageSize" ng-disabled="purchaseManagement.$invalid">
+          </div>
         </div>
+        <br>
+        <form class="login2" name="purchaseManagement"
+        ng-submit="purchaseManagement.$valid" novalidate>
+          <div class="panel panel-default">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="search">Id:</label>
+              </div>
+              <div class="col-sm-4">
+                <label for="search">IdUser:</label>
+              </div>
+              <div class="col-sm-4">
+                <label for="search">Product:</label>
+              </div>
+            </div>
+            <div class="row" dir-paginate="purchase in filteredData | itemsPerPage: pageSize"
+                  current-page="currentPage">
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="id{{$index}}"
+                min="0" max="10"
+                ng-model="purchase.id" required />
+              </div>
+              <div class="col-sm-3">
+                <input type="number" class="form-control" id="idUser{{$index}}"
+                ng-model="purchase.idUser" required />
+              </div>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="product{{$index}}"
+                ng-model="purchase.product" required />
+              </div>
+              <div>
+                <input type="submit" class="btn btn-success" id="assist{{$index}}" ng-disabled="purchase.assist" ng-model="purchase.assist"
+                ng-click="purchaseCtrl.updatePurchase(purchase)" value="Update"/>
+              </div>
+                <div>
+                <input type="submit" class="btn btn-success" id="assist{{$index}}" ng-disabled="purchase.assist" ng-model="purchase.assist"
+                ng-click="purchaseCtrl.deletePurchase(purchase)" value="Delete"/>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="text-left" boundary-links="true" ng-show="purchaseManagement.$valid">
+            <dir-pagination-controls boundary-links="true"
+            template-url="view/templates/dir-pagination-controls.html" ></dir-pagination-controls>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="formGroup"></label>
+            <div class="col-sm-4">
+              <button type="submit"
+              ng-disabled="purchaseManagement.$invalid" class="btn btn-success">
+                Submit
+              </button>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Back" ng-click="$parent.showAction=0">
+              </label>
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Add new purchase" ng-click="action=1">
+              </label>
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Events to assist" ng-click="action=2">
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--<div ng-show="action==1">
+        <add-purchase-form></add-purchase-form>
+      </div>
+      <div ng-show="action==2">
+        <cookie-info></cookie-info>
+      </div>-->
     </div>
-</form>
+  </div>
+</div>

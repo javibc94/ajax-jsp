@@ -71,6 +71,49 @@
             });
         }
         
+        this.updatePurchase = function () {
+            $scope.purchase.setIdUser($scope.idUser);
+            $scope.purchase.setIdProduct($scope.selectedProduct.id);
+            $scope.purchase = angular.copy($scope.purchase);
+            console.log($scope.purchase);
+            // Server conenction to verify user's data.
+            var promise = accessService.getData("MainController",
+                    true, "POST", {controllerType: 2, action: 10000, JSONData: JSON.stringify($scope.purchase)});
+
+            promise.then(function (outputData) {
+                
+                console.log(outputData);
+                if (outputData[0] === true) {
+                    alert("Purchase updated!");
+                } else {
+                    if (angular.isArray(outputData[1])) {
+                        console.log(outputData);
+                    }
+                }
+            });
+        }
+        
+        this.deletePurchase = function () {
+            $scope.purchase = angular.copy($scope.purchase);
+            //get the id from template
+            console.log($scope.purchase);
+            // Server conenction to verify user's data.
+            var promise = accessService.getData("MainController",
+                    true, "POST", {controllerType: 2, action: 10000, JSONData: JSON.stringify($scope.purchase)});
+
+            promise.then(function (outputData) {
+                
+                console.log(outputData);
+                if (outputData[0] === true) {
+                    alert("Purchase deleted!");
+                } else {
+                    if (angular.isArray(outputData[1])) {
+                        console.log(outputData);
+                    }
+                }
+            });
+        }
+        
     }]);
 
 })();
