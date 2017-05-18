@@ -65,7 +65,11 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10100:
-                    
+                        Product p = new Product (0,(String) jsonObject.get("name"), Double.valueOf(jsonObject.get("price").toString()));
+                        
+                        //Product p= new Product(0,"Nombre",5.5); 
+                        
+                        outPutData = addProduct(p);
                         break;
                         
                     case 10200:
@@ -118,6 +122,36 @@ public class ProductController implements ControllerInterface {
             } else {
                 outPutData.add(true);
                 outPutData.add(listProducts);
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            outPutData.add(false);
+            List<String> errors = new ArrayList<>();
+            errors.add("There has been an error in the server, try later");
+            outPutData.add(errors);
+            System.out.println("Internal error while creating new user (userInsert): " + ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return outPutData;
+    }
+    private ArrayList<Object> addProduct(Product p) {
+        ProductADO helper;
+        ArrayList<Object> outPutData = new ArrayList<>();
+        
+        System.out.println(p.toString());
+        try {
+            helper = new ProductADO();
+            
+            int inst = helper.insert(p);
+            if (inst == 0) {
+                outPutData.add(false);
+                List<String> errors = new ArrayList<>();
+                errors.add("Error inserting products");
+                outPutData.add(errors);
+            } else {
+                outPutData.add(true);
+                outPutData.add(p);
             }
 
         } catch (IOException | ClassNotFoundException ex) {

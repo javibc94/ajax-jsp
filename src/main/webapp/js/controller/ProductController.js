@@ -36,6 +36,43 @@
 
         }
         
+<<<<<<< HEAD
+        /**
+         * This method adds a product to DB and arrayProducts if the product is added
+         * @returns {undefined}
+         */
+        this.addProduct = function (){
+            
+            console.log($scope.product);
+            $scope.product.id=0;
+            $scope.product = angular.copy($scope.product);
+            
+            var promise = accessService.getData("MainController",
+                    true, "POST", {controllerType: 1, action: 10100, JSONData: JSON.stringify($scope.product)});
+                    
+            
+            promise.then(function (outputData) {
+                console.log("Devuelve outputData");
+                if (outputData[0] === true) {
+                    
+                        var productObj = new Product();
+                        productObj.construct(outputData[1][i].id, outputData[1][i].name, outputData[1][i].price);
+                        console.log(productObj);
+                        /*$scope.productsArray.push(productObj);
+                    $scope.selectedProduct = $scope.productsArray[0];*/
+                    
+                } else {
+                    if (angular.isArray(outputData[1])) {
+                        console.log(outputData);
+                    } else {
+                        alert("There has been an error in the server, try later");
+                    }
+                }
+            });
+        }
+        
+=======
+>>>>>>> 75562e6914ee5b9fa5fe3e62e3fac2a414e19cd2
     }]);
 
 })();

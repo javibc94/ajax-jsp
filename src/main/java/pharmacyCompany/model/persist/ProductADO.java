@@ -1,7 +1,6 @@
 package pharmacyCompany.model.persist;
 
 import pharmacyCompany.model.Entity;
-import pharmacyCompany.model.User;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -94,25 +93,14 @@ public class ProductADO implements EntityInterface {
     @Override
     public int insert(Entity entity) {
         int rowsAffected;
-        User user = (User) entity;
+        Product product = (Product) entity;
         try {
             Connection conn = dataSource.getConnection();
-            //String insertSQL = "INSERT INTO users (name,surname1,nick,password,address,telephone,mail,birthDate,entryDate,dropOutDate,active,image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-            //PreparedStatement st = conn.prepareStatement(insertSQL);
             PreparedStatement st = conn.prepareStatement(getQuery("INSERT"));
-
-            st.setString(1, user.getName());
-            st.setString(2, user.getSurname1());
-            st.setString(3, user.getNick());
-            st.setString(4, user.getPassword());
-            st.setString(5, user.getAddress());
-            st.setString(6, user.getTelephone());
-            st.setString(7, user.getMail());
-            st.setString(8, user.getBirthDate());
-            st.setString(9, user.getEntryDate());
-            st.setString(10, user.getDropOutDate());
-            st.setInt(11, user.getActive());
-            st.setString(12, user.getImage());
+            
+            st.setString(1, product.getName());
+            st.setDouble(2, product.getPrice());
+           
             rowsAffected = st.executeUpdate();
         } catch (SQLException ex) {
             dataSource.getLogger().log(Level.SEVERE, null, ex);
@@ -131,27 +119,14 @@ public class ProductADO implements EntityInterface {
     @Override
     public int update(Entity entity) {
         int rowsAffected;
-        User user = (User) entity;
+        Product p = (Product) entity;
         try {
             Connection conn = dataSource.getConnection();
-            //String updateSQL= "UPDATE users SET name = ?, surname1 = ?, nick =?, password =?, address =?, telephone = ?, mail = ?, birthDate = ?, entryDate = ?, dropOutDate = ?, active = ?, image = ? WHERE id = ?;";
-
-            //PreparedStatement st = conn.prepareStatement(updateSQL);
             PreparedStatement st = conn.prepareStatement(getQuery("UPDATE"));
 
-            st.setString(1, user.getName());
-            st.setString(2, user.getSurname1());
-            st.setString(3, user.getNick());
-            st.setString(4, user.getPassword());
-            st.setString(5, user.getAddress());
-            st.setString(6, user.getTelephone());
-            st.setString(7, user.getMail());
-            st.setString(8, user.getBirthDate());
-            st.setString(9, user.getEntryDate());
-            st.setString(10, user.getDropOutDate());
-            st.setInt(11, user.getActive());
-            st.setString(12, user.getImage());
-            st.setInt(13, user.getId());
+            st.setString(1, p.getName());
+            st.setDouble(2, p.getPrice());
+            st.setInt(3, p.getId());
 
             rowsAffected = st.executeUpdate();
         } catch (SQLException ex) {
@@ -170,11 +145,11 @@ public class ProductADO implements EntityInterface {
     @Override
     public int remove(Entity entity) {
         int rowsAffected;
-        User user = (User) entity;
+        Product p = (Product) entity;
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement st = conn.prepareStatement(getQuery("DELETE"));
-            st.setInt(1, user.getId());
+            st.setInt(1, p.getId());
             rowsAffected = st.executeUpdate();
         } catch (SQLException ex) {
             dataSource.getLogger().log(Level.SEVERE, null, ex);

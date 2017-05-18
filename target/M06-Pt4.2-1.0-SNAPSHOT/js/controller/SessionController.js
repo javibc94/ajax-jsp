@@ -66,7 +66,7 @@
             //Local session destroy
             // Server conenction to verify user's data.
             var promise = accessService.getData("MainController",
-                    true, "POST", {controllerType: 0, action: 10040, JSONData: ''});
+                    true, "POST", {controllerType: 0, action: 10500, JSONData: {product: ''}});
 
             promise.then(function (outputData) {
                 if (outputData[0] === true) {
