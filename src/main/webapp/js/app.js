@@ -67,4 +67,16 @@ $(document).ready(function () {
             controllerAs: 'purchaseManagement'
         };
     });
+    
+    pharmacyApp.directive("productManagement", function () {
+        return {
+            restrict: 'E',
+            templateUrl: "view/templates/product-management.html",
+            controller: function () {
+
+            },
+            controllerAs: 'productManagement'
+        };
+    });
+    
 })();

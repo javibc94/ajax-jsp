@@ -14,7 +14,7 @@
 		* html ul li a { height: 100%; }
 		* html ul ul li { margin-bottom: -1px; }
 		
-		body { padding-left: 10em; font-family: Arial, Helvetica, sans-serif; }
+		body { padding-left: 2em; font-family: Arial, Helvetica, sans-serif; }
 		#theMenu { width: 200px; height: 350px; margin: 30px 0; padding: 0; }
 		
 		/* Some list and link styling */

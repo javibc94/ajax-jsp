@@ -36,18 +36,27 @@
         <script type="text/javascript" src="js/controller/ProductController.js" ></script>
     </head>
     <body class="documentColor" ng-controller="SessionController as sessionCtrl" ng-init="userAction = 1; sessionCtrl.sessionControl()">
-        <div ng-controller="ProductController as productCtrl" ng-init="productCtrl.loadProducts()">   
-            <div ng-show="userType==0">
-                <a>Products management</a>
-                <a>Purchase management</a>
+        <div ng-controller="ProductController as productCtrl" ng-init="productCtrl.loadProducts()"> 
+            <div ng-controller="PurchaseController as purchaseCtrl">
+                <div ng-show="userType==0">
+                    <a ng-click="showForm==2">Products management</a>
+                    <a ng-click="showForm==3">Purchase management</a>
+                    <div ng-show="2" id="productForm">
+                        <product-management></product-management>
+                    </div>
+                    <div ng-show="3" id="purchaseMangForm">
+                        <purchase-management-real></purchase-management-real>
+                    </div>
+                </div>
             </div>
-            </div>
-            <div ng-show="userType==1" ng-controller="PurchaseController as purchaseCtrl">
+            <div ng-show="userType==1">
                 <a href="#" ng-click="showForm=1">Purchase a product</a>
                 <div id="purchaseForm" ng-show="showForm==1">
                     <purchase-management></purchase-management>
                 </div>
             </div>
+        </div>
+        <input type="button" ng-click="sessionCtrl.logOut()" value="logout"/>
         
     </body>
 </html>

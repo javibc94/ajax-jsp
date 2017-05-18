@@ -65,7 +65,10 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10100:
-                        Product p = new Product ((int) 0,(String) jsonObject.get("name"),(double) jsonObject.get("price"));
+                        Product p = new Product (0,(String) jsonObject.get("name"), Double.valueOf(jsonObject.get("price").toString()));
+                        
+                        //Product p= new Product(0,"Nombre",5.5); 
+                        
                         outPutData = addProduct(p);
                         break;
                         
@@ -128,7 +131,8 @@ public class ProductController implements ControllerInterface {
     private ArrayList<Object> addProduct(Product p) {
         ProductADO helper;
         ArrayList<Object> outPutData = new ArrayList<>();
-
+        
+        System.out.println(p.toString());
         try {
             helper = new ProductADO();
             
