@@ -36,7 +36,6 @@
 
         }
         
-<<<<<<< HEAD
         /**
          * This method adds a product to DB and arrayProducts if the product is added
          * @returns {undefined}
@@ -71,8 +70,6 @@
             });
         }
         
-=======
->>>>>>> 75562e6914ee5b9fa5fe3e62e3fac2a414e19cd2
     }]);
 
 })();

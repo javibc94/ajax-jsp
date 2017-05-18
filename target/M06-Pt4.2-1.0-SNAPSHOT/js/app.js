@@ -68,6 +68,17 @@ $(document).ready(function () {
         };
     });
     
+    pharmacyApp.directive("addProduct", function () {
+        return {
+            restrict: 'E',
+            templateUrl: "view/templates/add-product.html",
+            controller: function () {
+
+            },
+            controllerAs: 'addProduct'
+        };
+    });
+    
     pharmacyApp.directive("productManagement", function () {
         return {
             restrict: 'E',
@@ -76,6 +87,17 @@ $(document).ready(function () {
 
             },
             controllerAs: 'productManagement'
+        };
+    });
+    
+    pharmacyApp.directive("productManagementReal", function () {
+        return {
+            restrict: 'E',
+            templateUrl: "view/templates/product-management-real.html",
+            controller: function () {
+
+            },
+            controllerAs: 'productManagementReal'
         };
     });
     
