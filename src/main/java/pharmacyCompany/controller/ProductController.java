@@ -204,7 +204,7 @@ public class ProductController implements ControllerInterface {
         try {
             helper = new ProductADO();
             
-            int inst = helper.insert(dp);
+            int inst = helper.remove(dp);
             if (inst == 0) {
                 outPutData.add(false);
                 List<String> errors = new ArrayList<>();

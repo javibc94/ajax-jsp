@@ -48,6 +48,9 @@ public class PurchaseController implements ControllerInterface {
                 String JSONData = request.getParameter("JSONData");
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(JSONData);
+                ArrayList specialRequests;
+                String requests;
+                Purchase purchase;
                 //System.out.println(jsonObject);
                   //              System.out.println(JSONData);
                 //Purchase purchase;
@@ -55,14 +58,12 @@ public class PurchaseController implements ControllerInterface {
                 // 2. Accés to database in order to get data  
                 switch (action) {
                     case 10000:
-                        ArrayList specialRequests = (ArrayList) jsonObject.get("specialRequests");
+                        specialRequests = (ArrayList) jsonObject.get("specialRequests");
                         //System.out.println(specialRequests);
-                        String requests = String.join(";", specialRequests);
+                        requests = String.join(";", specialRequests);
                         //System.out.println(requests);
-                        Purchase purchase = new Purchase(0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
+                        purchase = new Purchase(0, (int) jsonObject.get("idUser"), (int) jsonObject.get("idProduct"), (String) jsonObject.get("deliveryDate"),
                                requests, (String) jsonObject.get("specialInstructions"));
-                        //Purchase purchase = new Purchase(0, 2, 4, "0000-00-00", 
-                          //      "specialRequests", "specialInstructions");
                         System.out.println("Purchase: " + purchase);
                         outPutData = purchaseInsert(purchase);
 
@@ -70,11 +71,29 @@ public class PurchaseController implements ControllerInterface {
                         break;
 
                     case 10100:
+                        specialRequests = (ArrayList) jsonObject.get("specialRequests");
+                        //System.out.println(specialRequests);
+                        requests = String.join(";", specialRequests);
+                        //System.out.println(requests);
+                        purchase = new Purchase(Integer.valueOf(jsonObject.get("id").toString()), Integer.valueOf(jsonObject.get("idUser").toString()), Integer.valueOf(jsonObject.get("idProduct").toString()), (String) jsonObject.get("deliveryDate"),
+                               requests, (String) jsonObject.get("specialInstructions"));
+                        System.out.println("Purchase: " + purchase);
+                        outPutData = purchaseUpdate(purchase);
 
+                        request.getSession().setAttribute("purchaseInsert", purchase);
                         break;
 
                     case 10200:
+                        specialRequests = (ArrayList) jsonObject.get("specialRequests");
+                        //System.out.println(specialRequests);
+                        requests = String.join(";", specialRequests);
+                        //System.out.println(requests);
+                        purchase = new Purchase(Integer.valueOf(jsonObject.get("id").toString()), Integer.valueOf(jsonObject.get("idUser").toString()), Integer.valueOf(jsonObject.get("idProduct").toString()), (String) jsonObject.get("deliveryDate"),
+                               requests, (String) jsonObject.get("specialInstructions"));
+                        System.out.println("Purchase: " + purchase);
+                        outPutData = purchaseDelete(purchase);
 
+                        request.getSession().setAttribute("purchaseInsert", purchase);
                         break;
 
                     case 10300:
@@ -130,4 +149,70 @@ public class PurchaseController implements ControllerInterface {
 
         return outPutData;
     }
+
+    private ArrayList<Object> purchaseUpdate(Purchase purchase) {
+        System.out.println("-------------------------purchaseUpdate");
+        PurchaseADO helper;
+        ArrayList<Object> outPutData = new ArrayList<>();
+
+        try {
+            helper = new PurchaseADO();
+
+            int rowsAffected = helper.update(purchase);
+            System.out.println("purchaseADO");
+            if (rowsAffected == 0) {
+                outPutData.add(false);
+                List<String> errors = new ArrayList<>();
+                errors.add("Purchase not correctly updated");
+                outPutData.add(errors);
+            } else {
+                outPutData.add(true);
+                outPutData.add(purchase);
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            outPutData.add(false);
+            List<String> errors = new ArrayList<>();
+            errors.add("There has been an error in the server, try later");
+            outPutData.add(errors);
+            System.out.println("Internal error while creating new purchase (purchaseUpdate): " + ex);
+            Logger.getLogger(PurchaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return outPutData;
+    }
+
+    private ArrayList<Object> purchaseDelete(Purchase purchase) {
+        System.out.println("-------------------------purchaseUpdate");
+        PurchaseADO helper;
+        ArrayList<Object> outPutData = new ArrayList<>();
+
+        try {
+            helper = new PurchaseADO();
+
+            int rowsAffected = helper.remove(purchase);
+            System.out.println("purchaseADO");
+            if (rowsAffected == 0) {
+                outPutData.add(false);
+                List<String> errors = new ArrayList<>();
+                errors.add("Purchase not correctly delete");
+                outPutData.add(errors);
+            } else {
+                outPutData.add(true);
+                outPutData.add(purchase);
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            outPutData.add(false);
+            List<String> errors = new ArrayList<>();
+            errors.add("There has been an error in the server, try later");
+            outPutData.add(errors);
+            System.out.println("Internal error while creating new purchase (purchaseDelete): " + ex);
+            Logger.getLogger(PurchaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return outPutData;
+    }
+    
+    
 }
