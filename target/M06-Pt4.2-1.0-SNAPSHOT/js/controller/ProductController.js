@@ -11,6 +11,7 @@
         $scope.productsArray = new Array();
         $scope.action = 0;
         $scope.product = new Product();
+        $scope.filteredData;
             
         this.loadProducts = function () {
 

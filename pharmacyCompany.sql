@@ -55,7 +55,7 @@ CREATE TABLE `purchases` (
   `id` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `idProduct` int(11) NOT NULL,
-  `deliveryDate` date NOT NULL,
+  `deliveryDate` varchar(200) NOT NULL,
   `spcecialRequests` text NOT NULL,
   `specialInstructions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

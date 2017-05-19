@@ -54,15 +54,12 @@
                     true, "POST", {controllerType: 2, action: 10000, JSONData: JSON.stringify($scope.purchase)});
 
             promise.then(function (outputData) {
-                
                 console.log(outputData);
-                if (outputData[0] === true) {
-                    for (var i=0; outputData[1].length; i++) {
+                if (outputData[0] === true) {                
                         var purchaseObj = new Purchase();
-                        purchaseObj.construct(outputData[1].id, $scope.idUser, $scope.selectedProduct, $scope.purchase.deliveryDate, $scope.purchase.specialRequests, $scope.purchase.specialInstructions);
+                        purchaseObj.construct(outputData[1].id, outputData[1].idUser, outputData[1].product, outputData[1].deliveryDate, outputData[1].specialRequests, outputData[1].specialInstructions);
                         console.log(purchaseObj);
                         //$scope.purchasesArray.push(purchaseObj);
-                    }
                 } else {
                     if (angular.isArray(outputData[1])) {
                         console.log(outputData);
