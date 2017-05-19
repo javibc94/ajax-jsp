@@ -9,6 +9,8 @@
 
     angular.module('pharmacyApp').controller("ProductController", ['$http', '$scope', '$window', '$cookies', 'accessService', 'userConnected', function ($http, $scope, $window, $cookies, accessService, userConnected) {
         $scope.productsArray = new Array();
+        $scope.action = 0;
+        $scope.product = new Product();
             
         this.loadProducts = function () {
 
@@ -55,7 +57,7 @@
                 if (outputData[0] === true) {
                     
                         var productObj = new Product();
-                        productObj.construct(outputData[1][i].id, outputData[1][i].name, outputData[1][i].price);
+                        productObj.construct(outputData[1].id, outputData[1].name, outputData[1].price);
                         console.log(productObj);
                         /*$scope.productsArray.push(productObj);
                     $scope.selectedProduct = $scope.productsArray[0];*/

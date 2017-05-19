@@ -70,7 +70,7 @@ public class ProductController implements ControllerInterface {
                         break;
                         
                     case 10200:
-                        Product mp = new Product (0,(String) jsonObject.get("name"), Double.valueOf(jsonObject.get("price").toString()));
+                        Product mp = new Product (Integer.valueOf(jsonObject.get("id").toString()),(String) jsonObject.get("name"), Double.valueOf(jsonObject.get("price").toString()));
                         outPutData = modifyProduct(mp);
                         break;
                     

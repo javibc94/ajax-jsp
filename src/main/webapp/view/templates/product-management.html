@@ -127,23 +127,23 @@
                 <input class="btn btn-default btn-primary btn-block"
                 type="button" value="Back" ng-click="$parent.showAction=0">
               </label>
-              <!--<label>
-                <input class="btn btn-default btn-primary btn-block"
-                type="button" value="Add new event" ng-click="action=1">
-              </label>-->
               <label>
                 <input class="btn btn-default btn-primary btn-block"
-                type="button" value="Events to assist" ng-click="action=2">
+                type="button" value="Add new event" ng-click="action=1">
+              </label>
+              <label>
+                <input class="btn btn-default btn-primary btn-block"
+                type="button" value="Products" ng-click="action=2">
               </label>
             </div>
           </div>
       </div>
-      <!--<div ng-show="action==1">
-        <add-event-form></add-event-form>
+      <div ng-show="action==1">
+        <add-product></add-product>
       </div>
       <div ng-show="action==2">
         <cookie-info></cookie-info>
-      </div>-->
+      </div>
     </div>
   </div>
 </div>
