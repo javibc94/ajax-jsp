@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONObject;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import pharmacyCompany.model.Entity;
 import pharmacyCompany.model.Purchase;
 import pharmacyCompany.model.persist.PurchaseADO;
 
@@ -38,7 +40,7 @@ public class PurchaseController implements ControllerInterface {
     }
 
     @Override
-    public ArrayList<Object> doAction() {
+    public ArrayList<Object> doAction() { 
         int action = Integer.parseInt(request.getParameter("action"));
         ArrayList<Object> outPutData = new ArrayList<>();
 
@@ -95,7 +97,9 @@ public class PurchaseController implements ControllerInterface {
 
                         request.getSession().setAttribute("purchaseInsert", purchase);
                         break;
-
+                    case 10300:
+                        outPutData = listAll();
+                        break;
                     default:
                         //Sending to client the error                        
                         outPutData.add(false);
@@ -111,6 +115,36 @@ public class PurchaseController implements ControllerInterface {
             }
         }
 
+        return outPutData;
+    }
+    
+    private synchronized ArrayList<Object> listAll() {
+        PurchaseADO helper;
+        ArrayList<Object> outPutData = new ArrayList<>();
+
+        try {
+            helper = new PurchaseADO();
+
+            Collection<Entity> listPurchases = helper.findAll();
+            if (listPurchases == null) {
+                outPutData.add(false);
+                List<String> errors = new ArrayList<>();
+                errors.add("Error reading purchases");
+                outPutData.add(errors);
+            } else {
+                outPutData.add(true);
+                outPutData.add(listPurchases);
+            }
+
+        } catch (IOException | ClassNotFoundException ex) {
+            outPutData.add(false);
+            List<String> errors = new ArrayList<>();
+            errors.add("There has been an error in the server, try later");
+            outPutData.add(errors);
+            System.out.println("Internal error while creating new user (userInsert): " + ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return outPutData;
     }
 

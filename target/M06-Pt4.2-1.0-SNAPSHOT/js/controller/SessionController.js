@@ -8,6 +8,7 @@
         $scope.userAction = 0;
         $scope.userType = 0;
         $scope.idUser = 0;
+        $scope.showForm = 0;
 
         this.sessionControl = function () {
             //copy

@@ -13,7 +13,6 @@
         $scope.idUser = $scope.$parent.idUser; //Get user id from session controller
         
         //Scope variables
-        $scope.showForm = 0;
         $scope.specialRequests = ["Dlivery at the main hospital", "Fragil material, must be sended in a special vehicle", "Product easily contamined, special protection nedded"];
         
         //Date pickers scope variables and functions
@@ -42,6 +41,28 @@
             } else {
                 $scope.purchase.removeSpecialRequests($scope.specialRequests[indexChecked]);
             }
+        }
+        
+        this.listAll = function(){
+            var promise = accessService.getData("MainController",
+                    true, "POST", {controllerType: 2, action: 10000, JSONData: {products: ''} });
+                    
+                    promise.then(function (outputData) {
+                if (outputData[0] === true) {
+                    for (var i=0; i<outputData[1].length; i++) {
+                        var purchaseObj = new Purchase();
+                        purcahseObj.construct(outputData[1][i].id, outputData[1][i].name, outputData[1][i].price);
+                        $scope.purchaseArray.push(purchaseObj);
+                    }
+                    
+                } else {
+                    if (angular.isArray(outputData[1])) {
+                        console.log(outputData);
+                    } else {
+                        alert("There has been an error in the server, try later");
+                    }
+                }
+            });
         }
         
         this.addPurchase = function () {
